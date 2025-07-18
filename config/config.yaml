@@ -1,0 +1,20 @@
+data_ingestion:
+  bucket_name: "n1kx-bucket-1"
+  bucket_file_name: "diabetes.csv"
+  train_ratio: 0.8
+
+data_preprocessing:
+  numerical_columns: 
+    - Pregnancies
+    - Glucose
+    - BloodPressure
+    - SkinThickness
+    - Insulin
+    - BMI
+    - DiabetesPedigreeFunction
+    - Age
+    # Add the new interaction features below
+    - Glucose_x_BMI
+    - Glucose_x_Age
+    - SkinThickness_x_Insulin
+  target_column: "Outcome"
