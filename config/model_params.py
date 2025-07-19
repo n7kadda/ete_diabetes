@@ -14,7 +14,7 @@ LIGHTGM_PARAMS = {
 
 # Parameters for RandomizedSearchCV, with more iterations
 RANDOM_SEARCH_PARAMS = {
-    "n_iter": 50, 
+    "n_iter": 15, 
     "cv": 5,
     "n_jobs": -1,
     "verbose": 1,
