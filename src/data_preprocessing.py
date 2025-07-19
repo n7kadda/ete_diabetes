@@ -1,3 +1,6 @@
+# This code is part of a data preprocessing module for a machine learning project.
+# It includes functions for loading data, feature engineering, handling missing values and scaling,
+# and saving processed data. The module is designed to work with a specific dataset related to diabetes.
 import os
 import pandas as pd
 import joblib

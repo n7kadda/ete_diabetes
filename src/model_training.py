@@ -1,3 +1,6 @@
+# This code is part of a machine learning project for diabetes classification.
+# It includes a class for training a LightGBM model with hyperparameter tuning using RandomizedSearchCV.
+# The module is designed to work with a specific dataset related to diabetes.
 import os
 import re 
 import numpy as np 

@@ -1,3 +1,6 @@
+# This code is part of a data ingestion module for a machine learning project.
+# It includes functions for downloading data from a Google Cloud Storage bucket, then splitting it into training and test sets.
+# The module is designed to work with a specific dataset related to diabetes.
 import os
 import pandas as pd
 from src.logger import get_logger

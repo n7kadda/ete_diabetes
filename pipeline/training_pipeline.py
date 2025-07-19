@@ -1,3 +1,5 @@
+# This code is part of a training pipeline for a machine learning project.
+# It orchestrates the data ingestion, preprocessing, and model training steps.
 from src.data_ingestion import DataIngestion
 from src.data_preprocessing import DataPreprocessor
 from src.model_training import ModelTraining
