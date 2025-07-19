@@ -1,4 +1,6 @@
-from scipy.stats import randint, uniform
+# config/model_params.py
+# This file contains the hyperparameter configurations for the LightGBM model
+from scipy.stats import randint, uniform 
 
 # Expanded hyperparameter search space for LightGBM
 LIGHTGM_PARAMS = {

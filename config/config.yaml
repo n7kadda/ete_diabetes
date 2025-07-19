@@ -1,11 +1,15 @@
-data_ingestion:
-  bucket_name: "n1kx-bucket-1"
-  bucket_file_name: "diabetes.csv"
-  train_ratio: 0.8
+# Configuration file for diabetes prediction project
+# This file contains settings for data ingestion and preprocessing
+# It is used to define the parameters for data handling and feature engineering
 
-data_preprocessing:
-  numerical_columns: 
-    - Pregnancies
+data_ingestion: # Data ingestion settings
+  bucket_name: "n1kx-bucket-1" # Name of the cloud storage bucket
+  bucket_file_name: "diabetes.csv" # Name of the file in the bucket
+  train_ratio: 0.8 # Ratio of data to be used for training
+
+data_preprocessing: # Data preprocessing settings
+  numerical_columns:  # List of numerical columns to be used in the dataset
+    - Pregnancies 
     - Glucose
     - BloodPressure
     - SkinThickness
@@ -13,8 +17,7 @@ data_preprocessing:
     - BMI
     - DiabetesPedigreeFunction
     - Age
-    # Add the new interaction features below
     - Glucose_x_BMI
     - Glucose_x_Age
     - SkinThickness_x_Insulin
-  target_column: "Outcome"
+  target_column: "Outcome" # Target column for prediction

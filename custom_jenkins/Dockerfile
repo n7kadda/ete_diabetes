@@ -1,4 +1,3 @@
-
 # Use the Jenkins image as the base image
 FROM jenkins/jenkins:lts
 
@@ -6,7 +5,7 @@ FROM jenkins/jenkins:lts
 USER root
 
 # Install prerequisites and Docker
-RUN apt-get update -y && \
+RUN apt-get update -y && \ 
     apt-get install -y apt-transport-https ca-certificates curl gnupg software-properties-common && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list && \
