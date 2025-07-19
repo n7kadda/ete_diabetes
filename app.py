@@ -4,15 +4,17 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template
 
-app = Flask(__name__)
+# This code is part of a Flask web application that serves a machine learning model for diabetes prediction.
+# It includes routes for the home page and a prediction endpoint.
+app = Flask(__name__)  # Initialize Flask application
 
-MODEL_PATH = os.path.join('artifacts', 'models', 'lgmb_model.pkl')
-SCALER_PATH = os.path.join('artifacts', 'processed', 'scaler.joblib')
+MODEL_PATH = os.path.join('artifacts', 'models', 'lgmb_model.pkl') # Path to the trained model
+SCALER_PATH = os.path.join('artifacts', 'processed', 'scaler.joblib') # Path to the scaler used for feature scaling
 
 try:
     # Load the pre-trained model and scaler
-    model = joblib.load(MODEL_PATH)
-    scaler = joblib.load(SCALER_PATH)
+    model = joblib.load(MODEL_PATH) # Load the LightGBM model
+    scaler = joblib.load(SCALER_PATH) # Load the scaler for feature scaling
     print("Model and scaler loaded successfully.")
 except FileNotFoundError as e:
     print(f"Error loading artifacts: {e}. Make sure the paths are correct and artifacts exist.")
@@ -23,30 +25,30 @@ except Exception as e:
     model = None
     scaler = None
 
-@app.route('/', methods=['GET'])
-def home():
-    return render_template('index.html', prediction_text='') 
+@app.route('/', methods=['GET']) # Home route
+def home(): # Render the home page
+    return render_template('index.html', prediction_text='') # Render the home page with an empty prediction text
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/predict', methods=['POST']) # Prediction route
+def predict(): # Handle prediction requests
     if model is None or scaler is None:
         return render_template('index.html', prediction_text='Error: Model or scaler not loaded.')
     try:
-        form_features = [float(x) for x in request.form.values()]
-        feature_names = [
+        form_features = [float(x) for x in request.form.values()] # Get form data and convert to float
+        feature_names = [ 
             'Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 
             'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age'
-        ]
-        input_df = pd.DataFrame([form_features], columns=feature_names)
-        input_df['Glucose_x_BMI'] = input_df['Glucose'] * input_df['BMI']
-        input_df['Glucose_x_Age'] = input_df['Glucose'] * input_df['Age']
-        input_df['SkinThickness_x_Insulin'] = input_df['SkinThickness'] * input_df['Insulin']
+        ] # Define feature names
+        input_df = pd.DataFrame([form_features], columns=feature_names) # Create DataFrame from input features
+        input_df['Glucose_x_BMI'] = input_df['Glucose'] * input_df['BMI'] # Create interaction feature
+        input_df['Glucose_x_Age'] = input_df['Glucose'] * input_df['Age'] # Create interaction feature
+        input_df['SkinThickness_x_Insulin'] = input_df['SkinThickness'] * input_df['Insulin'] # Create interaction feature
         
-        scaled_features = scaler.transform(input_df)
-        prediction = model.predict(scaled_features)
-        prediction_proba = model.predict_proba(scaled_features)
+        scaled_features = scaler.transform(input_df) # Scale the features using the loaded scaler
+        prediction = model.predict(scaled_features)     # Make prediction using the loaded model
+        prediction_proba = model.predict_proba(scaled_features) # Get prediction probabilities
 
-        if prediction[0] == 1:
+        if prediction[0] == 1: # If the prediction is for 'Diabetic'
             # Get the confidence score for the 'Diabetic' class
             confidence = prediction_proba[0][1] * 100
             output_text = f"Prediction: Diabetic (Confidence: {confidence:.2f}%)"
