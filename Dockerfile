@@ -20,7 +20,7 @@ COPY . .
 RUN pip install --no-cache-dir -e .
 
 # Install additional dependencies for the application
-RUN python pipeline/training_pipeline.py
+RUN python -m pipeline.training_pipeline
 
 # Expose the port the app runs on
 EXPOSE 5000

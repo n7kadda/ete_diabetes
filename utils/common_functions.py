@@ -27,3 +27,4 @@ def load_data(path):
     except Exception as e: # Handle exceptions
         logger.error(f"Error while loading data {e}")
         raise CustomException("Failed to load data", e) # Raise custom exception with error message and original exception
+    
