@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-2xl p-8 space-y-8 bg-white rounded-xl shadow-lg">
+        
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Diabetes Prediction</h1>
+            <p class="mt-2 text-gray-600">Enter patient details to predict the likelihood of diabetes.</p>
+        </div>
+
+        <form action="{{ url_for('predict') }}" method="post" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Input fields for the model features -->
+                <div>
+                    <label for="Pregnancies" class="block text-sm font-medium text-gray-700">Pregnancies</label>
+                    <input type="number" step="any" name="Pregnancies" id="Pregnancies" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="Glucose" class="block text-sm font-medium text-gray-700">Glucose</label>
+                    <input type="number" step="any" name="Glucose" id="Glucose" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="BloodPressure" class="block text-sm font-medium text-gray-700">Blood Pressure</label>
+                    <input type="number" step="any" name="BloodPressure" id="BloodPressure" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="SkinThickness" class="block text-sm font-medium text-gray-700">Skin Thickness</label>
+                    <input type="number" step="any" name="SkinThickness" id="SkinThickness" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="Insulin" class="block text-sm font-medium text-gray-700">Insulin</label>
+                    <input type="number" step="any" name="Insulin" id="Insulin" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="BMI" class="block text-sm font-medium text-gray-700">BMI</label>
+                    <input type="number" step="any" name="BMI" id="BMI" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="DiabetesPedigreeFunction" class="block text-sm font-medium text-gray-700">Diabetes Pedigree Function</label>
+                    <input type="number" step="any" name="DiabetesPedigreeFunction" id="DiabetesPedigreeFunction" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="Age" class="block text-sm font-medium text-gray-700">Age</glabel>
+                    <input type="number" step="any" name="Age" id="Age" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Predict
+                </button>
+            </div>
+        </form>
+
+        <!-- Prediction Result Display -->
+        {% if prediction_text %}
+        <div class="text-center mt-8 p-4 rounded-lg" 
+             role="alert"
+             class="{{ 'bg-red-100 text-red-800' if 'Diabetic' in prediction_text else 'bg-green-100 text-green-800' }}">
+            <p class="font-bold text-lg">{{ prediction_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
